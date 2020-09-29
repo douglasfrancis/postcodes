@@ -1,24 +1,25 @@
 <?php
 
-$url= 'http://api.geonames.org/postalCodeSearchJSON?postalcode=' . $_REQUEST['postcode'] . '&username=douglasfrancis';
+require('../vendor/autoload.php');
 
-$handle = curl_init();
-curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($handle, CURLOPT_URL,$url);
+$app = new Silex\Application();
+$app['debug'] = true;
 
-$result=curl_exec($handle);
+// Register the monolog logging service
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+  'monolog.logfile' => 'php://stderr',
+));
 
-curl_close($handle);
+// Register view rendering
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
 
-$decode = json_decode($result,true);	
+// Our web handlers
 
-$output['status']['code'] = "200";
-$output['status']['name'] = "ok";
-$output['data'] = $decode['postalCodes'];
+$app->get('/', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('index.html');
+});
 
-header('Content-Type: application/json; charset=UTF-8');
-
-echo json_encode($output); 
-
-?>
+$app->run();
