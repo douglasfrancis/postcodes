@@ -1,0 +1,55 @@
+body {
+    background-color: #007c89;
+}
+
+#top {
+    
+    width: 50vw;
+    margin-top: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    
+}
+
+input, #btn {
+    width: 300px;
+    height: 50px;
+    border-radius: 25px;
+    display: block;
+    margin-top: 5px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    text-align: center;
+
+}
+
+#btn {
+    background-color: #403b3b;
+    color: white;
+}
+
+label {
+    font-weight: 300;
+    margin: 10px;
+}
+
+#top, #bottom {
+    height: 100vh;
+}
+
+a {
+    color: white;
+    text-align: center;
+    font-weight: 600;
+
+}
+
+tr:nth-child(odd) {
+    background-color: grey;
+
+}
